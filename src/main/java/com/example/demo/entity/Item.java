@@ -1,26 +1,20 @@
-package com.example.demo.entity;
+package com.example.demo.Entity;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name="item")
 public class Item {
-	private Long itemid;
-	private Long brandid;
-	private float mrp;
-	private float discount;
-	private float price;
-	private String created_at;
-	private String updated_at;
-	
-	
-	@OneToOne(mappedBy="Product")
-	private Product product;
-	
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long itemid;
+private float mrp;
+private float discount;
+private float price;
+private String created_at;
+private String update_at;	
 }
