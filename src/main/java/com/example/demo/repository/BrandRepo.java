@@ -1,11 +1,11 @@
-package com.example.demo.Repository;
+package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import com.example.demo.Entity.Category;
 
+import com.example.demo.entity.Brand;
 @Repository
-public interface CategoryRepo extends CrudRepository<Category,Integer>,JpaRepository<Category,Integer>{
+public interface BrandRepo extends CrudRepository<Brand,Long>,JpaRepository<Brand,Long> {
 
 }

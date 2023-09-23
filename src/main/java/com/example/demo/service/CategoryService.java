@@ -1,4 +1,4 @@
-package com.example.demo.Service;
+package com.example.demo.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,12 +8,10 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.Entity.Category;
-import com.example.demo.Model.CategoryDTO;
-import com.example.demo.Repository.CategoryRepo;
-
-
-
+import com.example.demo.dto.CategoryDTO;
+import com.example.demo.entity.Category;
+import com.example.demo.repository.CategoryRepo;
+import com.example.demo.repository.ProductRepo;
 @Service
 public class CategoryService {
 
@@ -21,13 +19,15 @@ public class CategoryService {
 CategoryRepo categoryRepo;
 @Autowired
 ModelMapper modelMapper;
+@Autowired
+ProductRepo productRepo;
 
-public void createproduct(CategoryDTO categorydto){
+public void createcategory(CategoryDTO categorydto){
 	Category category = modelMapper.map(categorydto,Category.class);
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 	  LocalDateTime now = LocalDateTime.now();  
 	 category.setCreated_at(dtf.format(now));
-	 category.setUpdate_at(dtf.format(now));
+	 category.setUpdated_at(dtf.format(now));
 	 categoryRepo.save(category);
      }
 public String updatecategory(CategoryDTO categorydto) {
@@ -37,32 +37,36 @@ public String updatecategory(CategoryDTO categorydto) {
 		category.setTitle(categorydto.getTitle());
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 		  LocalDateTime now = LocalDateTime.now();  
-		 category.setUpdate_at(dtf.format(now));
+		 category.setUpdated_at(dtf.format(now));
 		 categoryRepo.save(category);
 		 return "update";
 	  }return "not update";
    } 
-
-public int deleteCategoryById( int categoryid) {
-	  Optional<Category> categoryoptional = categoryRepo.findById(categoryid);
- if(categoryoptional.isPresent()) {
-  	categoryRepo.deleteById(categoryid);
-	  return 0;
-  }else
-	  return 1;
-  }  
 
 public  List<CategoryDTO> getAllCategories(){
 	List<Category> categoryList=categoryRepo.findAll();	
 	List<CategoryDTO> categorydtoList= modelMapper.map(categoryList,new TypeToken<List<CategoryDTO>>() {}.getType() );
      return categorydtoList;
      } 
-public CategoryDTO getCategoriesById(Integer categoryid) {
+public CategoryDTO getCategoriesById(Long categoryid) {
 	 Optional<Category> category = categoryRepo.findById(categoryid);
 	     if(category.isPresent()) {
 	    	 CategoryDTO categorydto= modelMapper.map(category,CategoryDTO.class);	 
 		  return categorydto;
 	     }
 	 return null;
-    }
+      }
+public int deleteItemById( Long categoryid) {
+	Optional<Category> category=categoryRepo.findById(categoryid);
+	if(category.isPresent()) {
+		categoryRepo.deleteById(categoryid);
+	  return 0;
+	}else
+	  return 1;
+	  }
+
+
+
+
+
 }

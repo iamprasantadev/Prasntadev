@@ -13,4 +13,6 @@ public class ItemDTO {
 	private float price;
 	private String created_at;
 	private String updated_at;
+	private Long productid;
+
 }

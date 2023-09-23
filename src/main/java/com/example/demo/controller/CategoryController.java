@@ -1,4 +1,4 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.Model.CategoryDTO;
-import com.example.demo.Service.CategoryService;
+
+import com.example.demo.dto.CategoryDTO;
+import com.example.demo.service.CategoryService;
 
 
 @RestController
@@ -28,10 +29,10 @@ CategoryService categoryService;
 //to add category
 @PostMapping("/addcategory")	
 public ResponseEntity<String>createcategory(@RequestBody CategoryDTO categorydto){
-	categoryService.createproduct(categorydto);
+	categoryService.createcategory(categorydto);
 	return new ResponseEntity<String>(HttpStatus.CREATED);
       }
-// to update category
+ //to update category
 @PutMapping("/updatecategory")
 public ResponseEntity<String>updatecategory(@RequestBody CategoryDTO categorydto){
 	categoryService.updatecategory(categorydto);
@@ -39,8 +40,8 @@ public ResponseEntity<String>updatecategory(@RequestBody CategoryDTO categorydto
       }
 //to delete category
 @DeleteMapping("/deletecategory/{categoryid}")
-public String deleteCategory(@PathVariable("categoryid") int categoryid) {
-	categoryService.deleteCategoryById(categoryid);
+public String deleteCategory(@PathVariable("categoryid") Long categoryid) {
+	categoryService.deleteItemById(categoryid);
     return "Successfully Deleted";
      }
 //to get all category
@@ -50,7 +51,7 @@ private List<CategoryDTO>getAllCategories(){
      }
 //to get category by id
 @GetMapping("/category/{categoryid}")
-public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable Integer categoryid) {
+public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable("categoryid") Long categoryid) {
 	CategoryDTO categorydto= categoryService.getCategoriesById(categoryid);
 	 return new ResponseEntity<CategoryDTO>(categorydto,HttpStatus.OK);
      }
