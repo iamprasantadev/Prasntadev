@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.demo.dto.ItemDTO;
 import com.example.demo.entity.Brand;
 import com.example.demo.entity.Item;
@@ -24,9 +26,8 @@ public class ItemService {
 	ModelMapper modelMapper;
 	@Autowired
 	ProductRepo productRepo;
-	@Autowired
+	@Autowired 
 	BrandRepo brandRepo;
-	
 	public void addItem(ItemDTO itemDTO) {
 		Optional<Product> product=productRepo.findById(itemDTO.getProductid());
 		Optional<Brand> brand=brandRepo.findById(itemDTO.getBrandid());
@@ -88,4 +89,5 @@ public ItemDTO getItemsById(Long itemid) {
 	     }
 	 return null;
     }
+
 }
