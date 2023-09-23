@@ -1,5 +1,13 @@
 package com.example.demo.dto;
 
-public class ProductdetailsDTO {
 
+import lombok.Data;
+
+@Data
+public class ProductdetailsDTO {
+	
+	private Long productdetailsid;
+	private String created_at;
+	private String updated_at;
+	private Long productid;
 }
